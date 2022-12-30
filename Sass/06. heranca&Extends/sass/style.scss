@@ -1,0 +1,7 @@
+@mixin bodyBG($colorBG) {
+  background-color: $colorBG;
+}
+$bodyColor: rgb(171, 32, 199);
+body{
+  @include bodyBG($bodyColor);
+}
