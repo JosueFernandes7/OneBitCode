@@ -1,7 +1,31 @@
-@mixin bodyBG($colorBG) {
-  background-color: $colorBG;
+.btn{
+  width: 125px;
+  padding: 10px 0px;
+  border-radius: 20px;
+  display: block;
+  margin-top: 10px;
+  transition: background .4s;
+  cursor: pointer;
+  // herança
+  &.btn-amarelo {
+    background-color: yellow;
+  }
+  &.btn-azul {
+    background-color: blue;
+    color: white;
+  }
+  &:hover {
+    background-color: black;
+    color: white;
+  }
 }
-$bodyColor: rgb(171, 32, 199);
-body{
-  @include bodyBG($bodyColor);
+// extend
+.btn-roxo {
+  @extend .btn;
+  background-color: purple;
+  color: white;
 }
+
+// herança precisa que no html exista a tag pai ex btn, para puxar as atribuições
+
+// ja pelo extend não precisa colocar no html pode ser via extend mesmo.
