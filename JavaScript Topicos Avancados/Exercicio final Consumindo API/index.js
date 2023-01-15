@@ -74,15 +74,13 @@ function createDeleteTransactionBtn(transaction) {
   return deleteBtn
 }
 
-function renderTransaction(transaction, editable) {
+function renderTransaction(transaction) {
   const container = createTransactionContainer(transaction.id)
   const title = createTransactionTitle(transaction.name)
   const amount = createTransactionAmount(transaction.amount)
   const editBtn = createEditTransactionBtn(transaction)
   const deleteBtn = createDeleteTransactionBtn(transaction)
   container.append(title, amount, editBtn, deleteBtn)
-
-  if (editable == true) return container
 
   document.querySelector('#transactions').append(container)
 }
