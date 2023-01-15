@@ -1,4 +1,4 @@
-let transactions = [];
+let transactions = []
 
 function createTransactionContainer(id) {
   const container = document.createElement('div')
@@ -32,23 +32,68 @@ function createTransactionAmount(amount) {
   return span
 }
 
-function renderTransaction(transaction) {
+function createEditTransactionBtn(transaction) {
+  const editBtn = document.createElement('button')
+  editBtn.classList.add('edit-btn')
+  editBtn.textContent = 'Editar'
+  editBtn.addEventListener('click', () => {
+    console.log('aqui')
+    document.querySelector('#id').value = transaction.id
+    document.querySelector('#name').value = transaction.name
+    document.querySelector('#amount').value = transaction.amount
+  })
+  return editBtn
+}
+
+function createDeleteTransactionBtn(transaction) {
+  const deleteBtn = document.createElement('button')
+  deleteBtn.classList.add('delete-btn')
+  deleteBtn.textContent = 'deletar'
+  deleteBtn.addEventListener('click', async (e) => {
+    const divElement = e.target.parentElement
+    const id = transaction.id
+    const index = transactions.findIndex((e) => e.id == id)
+
+    // exclui
+    await fetch(`http://localhost:3000/transactions/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+
+    transactions.splice(index, 1)
+    divElement.remove()
+    updateBalance()
+  })
+  return deleteBtn
+}
+
+function renderTransaction(transaction, editable) {
   const container = createTransactionContainer(transaction.id)
   const title = createTransactionTitle(transaction.name)
   const amount = createTransactionAmount(transaction.amount)
-  container.append(title, amount)
+  const editBtn = createEditTransactionBtn(transaction)
+  const deleteBtn = createDeleteTransactionBtn(transaction)
+  container.append(title, amount, editBtn, deleteBtn)
+
+  if (editable == true) return container
+
   document.querySelector('#transactions').append(container)
 }
 
 async function fetchTransactions() {
-  return await fetch('http://localhost:3000/transactions').then(
-    (res) => res.json()
+  return await fetch('http://localhost:3000/transactions').then((res) =>
+    res.json()
   )
-
 }
+
 function updateBalance() {
-  const balanceSpan = document.querySelector('#balance');
-  const balance = transactions.reduce((acc, transaction) => acc + transaction.amount,0)
+  const balanceSpan = document.querySelector('#balance')
+  const balance = transactions.reduce(
+    (acc, transaction) => acc + transaction.amount,
+    0
+  )
   const formater = Intl.NumberFormat('pt-BR', {
     compactDisplay: 'long',
     currency: 'BRL',
@@ -56,38 +101,61 @@ function updateBalance() {
   })
   balanceSpan.textContent = formater.format(balance)
 }
+
 async function setup() {
-  const results = await fetchTransactions();
-  transactions.push(...results);
-  transactions.forEach(transaction => renderTransaction(transaction));
+  const results = await fetchTransactions()
+  transactions.push(...results)
+  transactions.forEach((transaction) => renderTransaction(transaction))
   updateBalance()
 }
-async function saveTransaction(ev) {
-  ev.preventDefault();
-  console.log(this.name.value);
-  
-  const name = this.name.value;
-  const amount =  +this.amount.value;
 
+async function saveTransaction(ev) {
+  ev.preventDefault()
+
+  const id = this.id.value
+  const name = this.name.value
+  const amount = +this.amount.value
   const newTransaction = {
     name: name,
-    amount: amount
+    amount: amount,
+  }
+  async function editAPI(id, newTransaction) {
+    const response = await fetch(`http://localhost:3000/transactions/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(newTransaction),
+      headers: {
+        'content-Type': 'application/json',
+      },
+    })
+    const transaction = await response.json()
+    const index = transactions.findIndex((element) => element.id == id)
+    transactions.splice(index, 1, transaction)
+
+    let transactionHtml = document.querySelector(`#transaction-${id}`)
+    transactionHtml.remove()
+    renderTransaction(transaction)
+  }
+  if (name != '' && amount != '' && id) {
+    // editar
+    await editAPI(id, newTransaction)
+  } else {
+    // criar
+    const response = await fetch('http://localhost:3000/transactions/', {
+      method: 'POST',
+      headers: {
+        'content-Type': 'application/json',
+      },
+      body: JSON.stringify(newTransaction),
+    })
+    const transaction = await response.json()
+
+    transactions.push(transaction)
+    renderTransaction(transaction)
   }
 
-  const response = await fetch('http://localhost:3000/transactions',{
-    method: 'POST',
-    headers: {
-      "content-Type": 'application/json'
-    },
-    body: JSON.stringify(newTransaction)
-  })
-  const transaction = await response.json()
-
-  transactions.push(transaction)
-  console.log(transactions);
-  renderTransaction(transaction)
+  this.reset()
   updateBalance()
 }
 
-document.addEventListener('DOMContentLoaded',setup);
-document.querySelector('form').addEventListener('submit',saveTransaction)
+document.addEventListener('DOMContentLoaded', setup)
+document.querySelector('form').addEventListener('submit', saveTransaction)
