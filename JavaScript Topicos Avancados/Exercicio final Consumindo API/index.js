@@ -37,12 +37,25 @@ function createEditTransactionBtn(transaction) {
   editBtn.classList.add('edit-btn')
   editBtn.textContent = 'Editar'
   editBtn.addEventListener('click', () => {
-    console.log('aqui')
+
     document.querySelector('#id').value = transaction.id
     document.querySelector('#name').value = transaction.name
     document.querySelector('#amount').value = transaction.amount
   })
   return editBtn
+}
+
+async function deleteApi(id,index,divElement) {
+  await fetch(`http://localhost:3000/transactions/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+
+  transactions.splice(index, 1)
+  divElement.remove()
+  updateBalance()
 }
 
 function createDeleteTransactionBtn(transaction) {
@@ -55,16 +68,8 @@ function createDeleteTransactionBtn(transaction) {
     const index = transactions.findIndex((e) => e.id == id)
 
     // exclui
-    await fetch(`http://localhost:3000/transactions/${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
 
-    transactions.splice(index, 1)
-    divElement.remove()
-    updateBalance()
+    await deleteApi(id,index,divElement);
   })
   return deleteBtn
 }
@@ -109,6 +114,39 @@ async function setup() {
   updateBalance()
 }
 
+async function editApi(id, newTransaction) {
+  const response = await fetch(`http://localhost:3000/transactions/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(newTransaction),
+    headers: {
+      'content-Type': 'application/json',
+    },
+  })
+
+  const transaction = await response.json()
+  const index = transactions.findIndex((element) => element.id == id)
+  transactions.splice(index, 1, transaction)
+
+  let transactionHtml = document.querySelector(`#transaction-${id}`)
+  transactionHtml.remove()
+  renderTransaction(transaction)
+}
+
+async function createApi(newTransaction) {
+  const response = await fetch('http://localhost:3000/transactions/', {
+    method: 'POST',
+    headers: {
+      'content-Type': 'application/json',
+    },
+    body: JSON.stringify(newTransaction),
+  })
+  const transaction = await response.json()
+
+  transactions.push(transaction)
+  renderTransaction(transaction)
+}
+
+
 async function saveTransaction(ev) {
   ev.preventDefault()
 
@@ -119,39 +157,8 @@ async function saveTransaction(ev) {
     name: name,
     amount: amount,
   }
-  async function editAPI(id, newTransaction) {
-    const response = await fetch(`http://localhost:3000/transactions/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(newTransaction),
-      headers: {
-        'content-Type': 'application/json',
-      },
-    })
-    const transaction = await response.json()
-    const index = transactions.findIndex((element) => element.id == id)
-    transactions.splice(index, 1, transaction)
-
-    let transactionHtml = document.querySelector(`#transaction-${id}`)
-    transactionHtml.remove()
-    renderTransaction(transaction)
-  }
-  if (name != '' && amount != '' && id) {
-    // editar
-    await editAPI(id, newTransaction)
-  } else {
-    // criar
-    const response = await fetch('http://localhost:3000/transactions/', {
-      method: 'POST',
-      headers: {
-        'content-Type': 'application/json',
-      },
-      body: JSON.stringify(newTransaction),
-    })
-    const transaction = await response.json()
-
-    transactions.push(transaction)
-    renderTransaction(transaction)
-  }
+  if (name != '' && amount != '' && id) await editApi(id, newTransaction)
+  else await createApi(newTransaction)
 
   this.reset()
   updateBalance()
