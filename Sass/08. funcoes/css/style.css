@@ -1,12 +1,1 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-
-.title {
-  height: 100vh;
-  background-color: rgb(0, 0, 0);
-  color: white;
-}
-
-/*# sourceMappingURL=style.css.map */
+*{margin:0;padding:0}.title{height:100vh;background-color:#000;color:#fff}body{background-color:blue;padding:200px;margin:-2px;color:#fff;text-decoration:none}/*# sourceMappingURL=style.css.map */

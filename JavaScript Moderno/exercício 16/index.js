@@ -5,7 +5,7 @@ function birthday(date) {
   const today = dayjs()
   const ageInYears = today.diff(birthday, 'year')
   const nextBirthday = birthday.add(ageInYears + 1, 'year')
-  const daysToNextBirthday = nextBirthday.diff(today, 'day') + 1
+  const daysToNextBirthday = today.diff(1,'day')
 
   console.log(`Idade: ${ageInYears}`)
   console.log(`Próximo aniversário: ${nextBirthday.format('DD/MM/YYYY')}`)
