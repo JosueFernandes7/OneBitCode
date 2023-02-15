@@ -7,7 +7,7 @@ const DescriptionWithLink = (props) => {
   if (props.link) {
     return (
       <Fragment>
-        <p>{props.text}</p>
+        <p>{props.description}</p>
         <p><a href={props.link}> {props.link}</a></p>
       </Fragment>
     )
@@ -15,7 +15,7 @@ const DescriptionWithLink = (props) => {
     return (
       <Fragment>
         <p>
-          <u>{props.text} </u>
+          <u>{props.description} </u>
         </p>
       </Fragment>
     )

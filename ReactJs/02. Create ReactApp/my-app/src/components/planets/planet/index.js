@@ -4,7 +4,6 @@ import DescriptionWithLink from '../../shared/index'
 
 const Planet = (props) => {
 
-  const names = ['a','b','c','d']
 
   let title;
   if(props.title_with_underline) 
@@ -16,17 +15,8 @@ const Planet = (props) => {
     <div>
       {title}
       <hr />
-      <DescriptionWithLink description = {props.description}link={props.link} />
+      <DescriptionWithLink description = {props.description} text = {props.text}link={props.link} />
       <GrayImg img_url={props.img_url} gray = {props.gray}/>
-
-      <h4>Satélites</h4>
-      <ul>
-        {
-          names.map((n) => 
-          <li>Satélite {n}</li>
-          )
-        }
-      </ul>
       <hr/>
     </div>
   )
