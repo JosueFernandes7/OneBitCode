@@ -1,0 +1,28 @@
+{
+  "planets": [
+    {
+      "id": "mars",
+      "name": "Mars",
+      "Description": "Mars blablabla",
+      "img_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/OSIRIS_Mars_true_color.jpg/280px-OSIRIS_Mars_true_color.jpg",
+      "link": "https://pt.wikipedia.org/wiki/Marte_(planeta)"
+    },
+    {
+      "id": "mercurio",
+      "name": "Mercurio",
+      "Description": "Mercurio blablabla",
+      "img_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Mercury_in_color_-_Prockter07-edit1.jpg/280px-Mercury_in_color_-_Prockter07-edit1.jpg",
+      "link": "https://pt.wikipedia.org/wiki/Merc%C3%BArio_(planeta)"
+    },
+    {
+      "id": "pluto",
+      "name": "Pluto",
+      "Description": "Pluto blablabla",
+      "img_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Pluto_in_True_Color_-_High-Res.jpg/280px-Pluto_in_True_Color_-_High-Res.jpg",
+      "link": "https://pt.wikipedia.org/wiki/Plut%C3%A3o"
+    }
+
+  ]
+
+
+}
