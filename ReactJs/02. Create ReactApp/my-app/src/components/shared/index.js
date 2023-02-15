@@ -1,11 +1,14 @@
 import React, {Fragment} from "react"
 
 const DescriptionWithLink = (props) => {
-  if (props.href) {
+  if(!props.description) 
+    return null
+  
+  if (props.link) {
     return (
       <Fragment>
         <p>{props.text}</p>
-        <p><a href={props.href}> {props.href}</a></p>
+        <p><a href={props.link}> {props.link}</a></p>
       </Fragment>
     )
   } else {

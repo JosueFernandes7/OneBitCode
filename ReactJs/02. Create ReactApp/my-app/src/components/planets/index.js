@@ -10,6 +10,7 @@ const Planets = () => {
       <h3>Plantet List</h3>
       <button >Show Message</button>
       <Planet
+        description={true}
         title_with_underline = {true}
         name={'Mercúrio'}
         text="Mercúrio é o menor[nota 1][nota 2] e mais interno planeta do Sistema Solar, orbitando o Sol a cada 87,969 dias terrestres."
