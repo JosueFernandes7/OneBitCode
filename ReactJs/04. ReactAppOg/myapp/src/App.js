@@ -1,16 +1,22 @@
-import React from "react";
-import Footer from "./Footer";
-import Form from "./form/Form";
-import Header from "./Header"
+import React from 'react'
+import Header from './Header'
+import Home from './Home';
+import Produtos from './Produtos';
+
 const App = () => {
+  const { pathname } = window.location
+  let Component;
+
+  if(pathname === "/produtos") {
+    Component = Produtos
+  } else Component = Home
 
   return (
-    <div>
-      <Header></Header>
-      <Form/>
-      <Footer></Footer>
-    </div>
-  );
-};
+    <section>
+      <Header />
+      <Component/>
+    </section>
+  )
+}
 
 export default App
