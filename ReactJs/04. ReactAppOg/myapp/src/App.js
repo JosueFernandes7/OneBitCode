@@ -1,20 +1,15 @@
 import React from 'react'
-import Header from './Header'
-import Home from './Home';
-import Produtos from './Produtos';
+import ButtonModal from './ButtonModal';
+import Modal from './Modal';
+
 
 const App = () => {
-  const { pathname } = window.location
-  let Component;
-
-  if(pathname === "/produtos") {
-    Component = Produtos
-  } else Component = Home
+ const [modal, setModal] = React.useState(false);
 
   return (
     <section>
-      <Header />
-      <Component/>
+      <Modal setModal={setModal} modal={modal}/>
+     <ButtonModal setModal={setModal} estado = {modal}/>
     </section>
   )
 }
