@@ -1,17 +1,23 @@
 import React from 'react'
-import ButtonModal from './ButtonModal';
-import Modal from './Modal';
-
 
 const App = () => {
- const [modal, setModal] = React.useState(false);
+  const [contar, setContar] = React.useState(1);
+  const [items, setItems] = React.useState(['Item 1']);
+
+  const handleClick = () => {
+    setContar((contar) => contar + 1)
+    setItems([...items, `Item ${contar + 1}`])
+  }
+
 
   return (
-    <section>
-      <Modal setModal={setModal} modal={modal}/>
-     <ButtonModal setModal={setModal} estado = {modal}/>
-    </section>
-  )
-}
+    <>
+    {items.map(e => <li key={e}>{e}</li>)}
+    <button onClick={handleClick}>{contar}
+    </button>
+    </>
+  );
+};
+
 
 export default App
