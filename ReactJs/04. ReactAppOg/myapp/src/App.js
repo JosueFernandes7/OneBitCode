@@ -1,14 +1,12 @@
-import React from 'react'
-import Produto from './Produto'
-import { GlobalStorage } from './GlobalContext'
-import Limpar from './Limpar'
-function App() {
-  return (
-  <GlobalStorage> 
-    <Limpar/>
-    <Produto/>
-  </GlobalStorage>)
+import useLocalStorage from "./hooks/useLocalStorage"
 
+function App() {
+  window.addEventListener('click',handleClick);
+  function handleClick(e) {
+    setProduto(e.target.innerHTML);
+  }
+  const [produto, setProduto] = useLocalStorage('produto','');
+  return <button >teste</button>
 }
 
 export default App
