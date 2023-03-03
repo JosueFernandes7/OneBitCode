@@ -1,7 +1,6 @@
 import React from 'react';
 
 const Radio = ({options, value, setValue}) => {
-  console.log(options);
   return (
     <>
     {options.map((op, index) => (
