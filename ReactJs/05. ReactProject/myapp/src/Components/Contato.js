@@ -4,7 +4,7 @@ import foto from '../img/contato.jpg'
 import Head from './Head';
 function Contato() {
   return (
-    <section className={styles.contato + " " + "animeLeft"}>
+    <section className={`${styles.contato} animeLeft`}>
       <Head title="Contato" description="Essa é a página de Contato"/>
       <img src={foto} alt="Maquina de Escrever"></img>
       <div>

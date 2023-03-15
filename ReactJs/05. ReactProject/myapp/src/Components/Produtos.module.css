@@ -1,3 +1,8 @@
-.container {
-    background-color: red;
+.produtos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+.nome {
+  margin: .5rem 0 ;
 }
