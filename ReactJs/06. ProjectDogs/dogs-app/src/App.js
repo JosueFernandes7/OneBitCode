@@ -1,11 +1,13 @@
 import React from 'react';
-import Api from './api/Api';
 import './App.css'
+import Header from './Components/Header';
+import Footer from './Components/Footer';
 
 function App() {
   return (
     <div>
-      <Api/>
+        <Header/>
+        <Footer/>
     </div>
   );
 }
