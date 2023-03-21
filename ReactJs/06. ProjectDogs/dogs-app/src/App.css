@@ -71,13 +71,13 @@ a {
     border-radius: .2rem;
     z-index: -1;
 }
-.animeleft {
+.animeLeft {
     opacity: 0;
-    transform: translateX(-20px);
-    animation: animeleft 0.3s forwards;
+    transform: translateX(-40px);
+    animation: animeLeft 0.4s forwards;
 }
 
-@keyframes animeleft {
+@keyframes animeLeft {
     to {
         opacity: initial;
         transform: initial;
