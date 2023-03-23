@@ -9,6 +9,10 @@ import styles from './UserHeaderNav.module.css'
 const UserHeaderNav = () => {
     const [mobile, setMobile] = React.useState(null);
     const { userLogout } = React.useContext(UserContext);
+
+// uma forma de pegar o width da tela dinamicamente
+    const {matches} = window.matchMedia('(max-width: 40rem)');
+    console.log(matches);
     return (
         <nav className={styles.nav}>
             <NavLink to="/conta" end>
