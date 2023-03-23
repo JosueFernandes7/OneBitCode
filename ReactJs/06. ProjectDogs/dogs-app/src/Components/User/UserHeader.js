@@ -8,10 +8,10 @@ function UserHeader() {
 
     React.useEffect(() => {
         const {pathname} = location;
-        let newTitle = pathname.split("/").filter(e => e != "conta").join('');
-        if(newTitle == "") newTitle = " Minha Conta";
+        let newTitle = pathname.split("/").filter(e => e !== "conta").join('');
+        if(newTitle === "") newTitle = " Minha Conta";
         else newTitle = newTitle[0].toUpperCase() + newTitle.substring(1)
-  
+        
 
         setTitle(newTitle);
     }, [location])
