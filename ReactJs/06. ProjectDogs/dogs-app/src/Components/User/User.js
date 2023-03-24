@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Feed from "../Feed/Feed";
 import UserHeader from "./UserHeader";
-import { UserPhotoPhost } from "./UserPhotoPhost";
+import UserPhotoPost from "./UserPhotoPost";
 import UserStats from "./UserStats";
 
 function User() {
@@ -10,7 +10,7 @@ function User() {
     <UserHeader/>
     <Routes>
         <Route path="/" element={<Feed/>}/>
-        <Route path="/postar" element={<UserPhotoPhost/>}/>
+        <Route path="/postar" element={<UserPhotoPost/>}/>
         <Route path="/estatisticas" element={<UserStats/>}/>
     </Routes>
     </section>;
