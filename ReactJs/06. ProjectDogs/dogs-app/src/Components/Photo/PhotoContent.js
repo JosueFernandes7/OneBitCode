@@ -2,11 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PhotoComments from "./PhotoComments";
 import styles from "./PhotoContent.module.css";
+import { UserContext } from "../../UserContext";
+import PhotoDelete from "./PhotoDelete";
 
 const PhotoContent = ({ data }) => {
-    console.log(data);
+    const user = React.useContext(UserContext);
     const { photo, comments } = data;
-    if(data === null) return null;
+    if (data === null) return null;
     return (
         <div className={styles.photo}>
             <div className={styles.img}>
@@ -15,9 +17,14 @@ const PhotoContent = ({ data }) => {
             <div className={styles.details}>
                 <div>
                     <p className={styles.author}>
-                        <Link to={`/perfil/${photo.author}`}>
-                            @{photo.author}
-                        </Link>
+                        {user.data && user.data.username === photo.author ? (
+                            <PhotoDelete id={photo.id} />
+                        ) : (
+                            <Link to={`/perfil/${photo.author}`}>
+                                @{photo.author}
+                            </Link>
+                        )}
+
                         <span className={styles.visualizacoes}>
                             {photo.acessos}
                         </span>
@@ -27,11 +34,13 @@ const PhotoContent = ({ data }) => {
                     </h1>
                     <ul className={styles.attributes}>
                         <li>{photo.peso} kg</li>
-                        <li>{photo.idade} {photo.idade === 1 ? 'ano' : 'anos'}</li>
+                        <li>
+                            {photo.idade} {photo.idade === 1 ? "ano" : "anos"}
+                        </li>
                     </ul>
                 </div>
             </div>
-            <PhotoComments id={photo.id} comments={comments}/>
+            <PhotoComments id={photo.id} comments={comments} />
         </div>
     );
 };
