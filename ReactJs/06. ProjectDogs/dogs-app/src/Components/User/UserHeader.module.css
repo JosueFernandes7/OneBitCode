@@ -1,8 +1,0 @@
-.header {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    justify-content: space-between;
-    margin-block: 1rem;
-    position: relative;
-}
